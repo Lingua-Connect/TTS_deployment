@@ -1,11 +1,12 @@
 FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y ffmpeg git
 
 RUN pip install transformers==4.49.0
 # Install Python dependencies
-RUN pip install datasets scipy librosa soundfile
+RUN pip install datasets scipy librosa soundfile 
+
 
 # Set up working directory
 WORKDIR /

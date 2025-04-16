@@ -3,7 +3,6 @@ import torch
 import tempfile
 import os
 import base64
-import numpy as np
 import scipy.io.wavfile
 from datasets import load_dataset
 from speechbrain.pretrained import EncoderClassifier
