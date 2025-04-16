@@ -1,0 +1,30 @@
+FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y git
+
+RUN pip install transformers==4.49.0
+# Install Python dependencies
+RUN pip install datasets scipy librosa soundfile
+
+# Set up working directory
+WORKDIR /
+
+RUN pip install --no-cache-dir runpod
+
+# Copy your application code
+COPY rp_handler.py /
+
+# # Pre-download the models to speed up cold starts
+# RUN python -c "from transformers import SpeechT5Processor, SpeechT5ForTextToSpeech, SpeechT5HifiGan; \
+#     processor = SpeechT5Processor.from_pretrained('microsoft/speecht5_tts'); \
+#     model = SpeechT5ForTextToSpeech.from_pretrained('microsoft/speecht5_tts'); \
+#     vocoder = SpeechT5HifiGan.from_pretrained('microsoft/speecht5_hifigan'); \
+#     from datasets import load_dataset; \
+#     _ = load_dataset('Matthijs/cmu-arctic-xvectors', split='validation')"
+
+# Set the entry point
+
+EXPOSE 8000
+
+CMD ["python3", "-u", "rp_handler.py"]
