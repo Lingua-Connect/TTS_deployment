@@ -24,7 +24,7 @@ COPY rp_handler.py /
 #     from datasets import load_dataset; \
 #     _ = load_dataset('Matthijs/cmu-arctic-xvectors', split='validation')"
 
-# Set the entry point
+# Set the entry point 
 
 EXPOSE 8000
 
